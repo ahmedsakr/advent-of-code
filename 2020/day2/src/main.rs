@@ -54,19 +54,9 @@ fn get_file_content() -> io::Result<Vec<String>> {
 
 fn main() {
     let list = get_file_content().expect("Failed to read list.csv");
-
-    let mut part1_valid = 0;
-    let mut part2_valid = 0;
-    for entry in list.iter() {
-        if PasswordEntry::new(entry).part1_valid() {
-            part1_valid += 1;
-        }
-        if PasswordEntry::new(entry).part2_valid() {
-            part2_valid += 1;
-        }
-    }
+    let part1_valid = list.iter().filter(|entry| PasswordEntry::new(entry).part1_valid()).count();
+    let part2_valid = list.iter().filter(|entry| PasswordEntry::new(entry).part2_valid()).count();
 
     print!("Part 1: Total valid: {}\n", part1_valid);
     print!("Part 2: Total valid: {}\n", part2_valid);
-
 }
